@@ -1,6 +1,8 @@
 package com.codeforsolution.user.service.userservice.config;
 
 import com.codeforsolution.user.service.userservice.service.CustomeUserDetailsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +20,14 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class AuthConfig {
 
+    final Logger logger = LoggerFactory.getLogger(AuthConfig.class);
     @Bean
     public UserDetailsService userDetailsService(){
         return new CustomeUserDetailsService();
     }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        logger.info("---------- security filter chain method call ----------");
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth

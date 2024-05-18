@@ -1,4 +1,6 @@
 spring:
+  main:
+    web-application-type: reactive
   application:
     name: api-gateway
   cloud:
@@ -8,12 +10,15 @@ spring:
           - id: user-service
             uri:  lb://user-service
             predicates:
-              - Path=/users/**
+              - Path=/auth/**
           - id: product-service
             uri: lb://product-service
             predicates:
             - Path=/products/**
-
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 eureka:
    client:
       serviceUrl:
@@ -21,5 +26,9 @@ eureka:
 server:
   port: 8787
 
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    reactor.netty.http.client: DEBUG
 
 
