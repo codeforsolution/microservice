@@ -53,7 +53,6 @@ class JwtAuthenticationFilter implements GlobalFilter {
                 throw new RuntimeException("un authorized access to application");
             }
         }
-
         return chain.filter(exchange);
     }
 
