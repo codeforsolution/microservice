@@ -1,4 +1,4 @@
-package com.codeforsolution.product.service.product_service;
+package com.codeforsolution.product.service.productservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
