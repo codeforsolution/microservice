@@ -1,18 +1,9 @@
 package com.codeforsolution.order.api.service;
 
-import com.codeforsolution.order.api.entity.Order;
-import com.codeforsolution.order.api.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.codeforsolution.order.api.common.TransactionRequest;
+import com.codeforsolution.order.api.model.Order;
 
-@Service
-public class OrderService {
+public interface OrderService {
 
-    @Autowired
-    private OrderRepository orderRepository;
-
-    public Order saveOrder(Order order){
-        return orderRepository.save(order);
-    }
-
+    public Order saveOrder(TransactionRequest transactionRequest);
 }

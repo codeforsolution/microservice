@@ -1,24 +1,23 @@
-package com.codeforsolution.order.api.entity;
-
+package com.codeforsolution.order.api.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Table
 @Entity
-@NoArgsConstructor
+@Table(name="order_table")
+@Data
+@NoArgsConstructor(force = true)
 @AllArgsConstructor
-public class Order{
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    private int id;
-    private String name;
-    private int quantity;
-    private double price;
+    private final Long orderId;
+    private final String name;
+    private final int quantity;
+    private final Double price;
 
 }
