@@ -1,4 +1,4 @@
-package com.codeforsolution.product.service.productservice.model;
+package com.codeforsolution.api.inventory.service.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -6,21 +6,19 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Objects;
-
-@Entity
-@Table
 @Data
+@Table
+@Entity
 @Builder
-@NoArgsConstructor(force = true)
+@NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Inventory {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
-    private final Long productId;
-    private final String name;
-    private final Double price;
-    private final String description;
+    private Long inventoryId;
+    private String skuCode;
+    private Integer quantity;
 
 }

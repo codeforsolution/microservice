@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface OrderService {
 
-    public Order saveOrder(TransactionRequest transactionRequest);
+    public Order placeOrder(TransactionRequest transactionRequest);
 
     List<Order> getOrders();
 

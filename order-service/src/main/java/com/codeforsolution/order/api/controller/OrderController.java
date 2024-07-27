@@ -28,9 +28,10 @@ public class OrderController {
      * @return
      */
     @PostMapping
-    public Order saveOrder(@RequestBody TransactionRequest transactionRequest) {
+    public Order placeOrder(@RequestBody TransactionRequest transactionRequest) {
+        //call inventory service and place the order if product is in stock
 
-        return orderService.saveOrder(transactionRequest);
+        return orderService.placeOrder(transactionRequest);
     }
 
     /**

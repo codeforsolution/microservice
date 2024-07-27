@@ -1,0 +1,23 @@
+server:
+  port: ${PORT:0}
+spring:
+  application:
+    name: inventory-service
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database: POSTGRESQL
+    show-sql: true
+  datasource:
+    #type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/codeforsolution
+    username: postgres
+    password: postgre
+    driver-class-name:  org.postgresql.Driver
+  devtools:
+    restart:
+      enabled:  true
+
+  client:
+    serviceUrl:
+      defaultZone:  http://localhost:8761/eureka/

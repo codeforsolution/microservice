@@ -1,5 +1,7 @@
 package com.codeforsolution.product.service.productservice.controller;
 
+import com.codeforsolution.product.service.productservice.dto.ProductRequest;
+import com.codeforsolution.product.service.productservice.dto.ProductResponse;
 import com.codeforsolution.product.service.productservice.model.Product;
 import com.codeforsolution.product.service.productservice.service.ProductService;
 import org.springframework.beans.BeanUtils;
@@ -20,12 +22,12 @@ public class ProductController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
                 produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Product> createProduct(@RequestBody Product product){
-        return new ResponseEntity<Product>(productService.createProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest productRequest){
+        return new ResponseEntity<ProductResponse>(productService.createProduct(productRequest), HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts(){
+    public ResponseEntity<List<ProductResponse>> getAllProducts(){
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
 

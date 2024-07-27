@@ -1,15 +1,16 @@
 package com.codeforsolution.order.api.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name="order_table")
 @Data
 @NoArgsConstructor(force = true)
 @AllArgsConstructor
+@Builder
+@Getter
+@Setter
 public class Order {
 
     @Id
