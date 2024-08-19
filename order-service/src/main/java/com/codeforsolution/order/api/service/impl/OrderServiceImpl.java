@@ -2,11 +2,13 @@ package com.codeforsolution.order.api.service.impl;
 
 import com.codeforsolution.order.api.common.Payment;
 import com.codeforsolution.order.api.common.TransactionRequest;
+import com.codeforsolution.order.api.exception.OrderNotFoundException;
 import com.codeforsolution.order.api.model.Order;
 import com.codeforsolution.order.api.repository.OrderRepository;
 import com.codeforsolution.order.api.service.OrderService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
@@ -19,11 +21,16 @@ public class OrderServiceImpl implements OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient webClient;
+
+    @Value("inventorty.base.url")
+    private String inventoryBaseURL;
     /**
      * @param transactionRequest
      * @return
      */
+
     @Override
+//    @CircuitBreaker(name="placeOrderCall", fallbackMethod = "fallbackDoOrder")
     public Order placeOrder(TransactionRequest transactionRequest) {
         Order order = transactionRequest.getOrder();
         Payment payment = transactionRequest.getPayment();
@@ -32,7 +39,8 @@ public class OrderServiceImpl implements OrderService {
         //Rest call
         ////call inventory service and place the order if product is in stock
         Boolean result = webClient.get()
-                .uri("http://book-iklu14efh2:8787/inventory-service/api/inventory/"+order.getName())
+                .uri(inventoryBaseURL+order.getName())
+            //    .header("Authentication", "")
                 .retrieve()
                 .bodyToMono(Boolean.class)
                 .block();
@@ -40,7 +48,7 @@ public class OrderServiceImpl implements OrderService {
 
             return orderRepository.save(order);
         } else{
-             throw  new RuntimeException("Not pleced ");
+             throw  new RuntimeException("Order not placed ");
         }
     }
 
@@ -74,5 +82,10 @@ public class OrderServiceImpl implements OrderService {
        } catch (Exception e){
            throw new RuntimeException("Error while deleting the order");
        }
+    }
+
+
+    public Order fallbackDoOrder(Throwable throwable){
+            throw new OrderNotFoundException("Invertory service not avialable");
     }
 }

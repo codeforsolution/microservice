@@ -15,6 +15,30 @@ spring:
     restart:
       enabled:  true
 
-#  client:
-#    serviceUrl:
-#      defaultZone:  http://localhost:8761/eureka/
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone:  http://localhost:8761/eureka/
+management:
+  endpoints.web.exposure.include:
+    - '*'
+  endpoint.health.show-details: always
+  health.circuitbreakers.enabled: true
+
+resilience4j.circuitbreaker:
+  config:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFormOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 5s
+      failureRateThreashold: 50
+      eventConsumerBufferSize: 10
+inventorty:
+  base:
+    url: http://localhost:8787/inventory-service/api/inventory/

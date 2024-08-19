@@ -18,6 +18,10 @@ spring:
     restart:
       enabled:  true
 
+eureka:
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
   client:
     serviceUrl:
       defaultZone:  http://localhost:8761/eureka/

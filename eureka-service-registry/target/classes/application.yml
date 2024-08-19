@@ -1,11 +1,8 @@
+spring:
+  application:
+    name: eureka-server
 server:
   port: 8761
-spring:
-  cloud:
-    config:
-      enabled=false:
-      import-check:
-        enabled:  false
 eureka:
   client:
     registerWithEureka: false

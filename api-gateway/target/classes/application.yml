@@ -5,24 +5,19 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      mvc:
-        routes:
-          - id: user-service
-            uri:  lb://user-service
-            predicates:
-              - Path=/auth/**
-          - id: product-service
-            uri: lb://product-service
-            predicates:
-              - Path=/api/product/**
-          - id: inventory-service
-            uri: lb://inventory-service
-            predicates:
-              - Path=/api/inventory/**
-          - id: order-service
-            uri: lb://order-service
-            predicates:
-              - Path=/api/order/**
+      routes:
+        - id: user-service
+          uri:  lb://user-service
+          predicates:
+            - Path=/auth/**
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/order/**
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/api/inventory/**
       discovery:
         locator:
           enabled: true
@@ -33,10 +28,12 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 server:
   port: 8787
+# Actuator Endpoints
+management:
+  health:
+    refresh:
+      enabled: true
+#Resilinece4j Properties
 
-logging:
-  level:
-    org.springframework.cloud.gateway: DEBUG
-    reactor.netty.http.client: DEBUG
 
 
