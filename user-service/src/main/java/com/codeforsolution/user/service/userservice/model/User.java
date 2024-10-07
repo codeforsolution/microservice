@@ -11,12 +11,15 @@ import org.springframework.data.annotation.Version;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
+
 @Entity
 @Table(name = "user")
 @Data
 @Getter
 @Setter
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
     @SequenceGenerator(name = "sequenceGenerator")
@@ -41,6 +44,13 @@ public class User {
     @NotNull
     private LocalDate registrationDate;
     private LocalDateTime lastLogin;
+    private Integer creditScore;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+//    @JoinTable(name = "user_roles",
+//            joinColumns = @JoinColumn(name = "user_id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id"))
+//    private Set<Role> roles;
 
     public User() {
         registrationDate = LocalDate.now();
@@ -48,7 +58,7 @@ public class User {
         version = 1L;
     }
 
-    public User(Long id, Long version, LocalDateTime lastModified, String firstName, String middleName, String lastName, String username, String password, String email, boolean enabled, boolean accountNonLocked, boolean accountNonExpired, boolean credentialsNonExpired, String rememberMeToken, String registrationConfirmationToken, LocalDate registrationDate, LocalDateTime lastLogin) {
+    public User(Long id, Long version, LocalDateTime lastModified, String firstName, String middleName, String lastName, String username, String password, String email, boolean enabled, boolean accountNonLocked, boolean accountNonExpired, boolean credentialsNonExpired, String rememberMeToken, String registrationConfirmationToken, LocalDate registrationDate, LocalDateTime lastLogin, Integer creditScore) {
         this.id = id;
         this.version = version;
         this.lastModified = lastModified;
@@ -66,6 +76,7 @@ public class User {
         this.registrationConfirmationToken = registrationConfirmationToken;
         this.registrationDate = registrationDate;
         this.lastLogin = lastLogin;
+        this.creditScore = creditScore;
     }
 
 

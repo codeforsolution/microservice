@@ -34,7 +34,7 @@ class JwtAuthenticationFilter implements GlobalFilter {
      */
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        logger.info("My first pre-filter is excuted...");
+        logger.info("My first pre-filter is excuted..."+ routeValidator.isSecured.toString());
         if(routeValidator.isSecured.test(exchange.getRequest())){
             //header contains token or not
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {

@@ -5,6 +5,7 @@ import com.codeforsolution.user.service.userservice.model.User;
 import com.codeforsolution.user.service.userservice.model.UserRequest;
 import com.codeforsolution.user.service.userservice.repository.UserRepository;
 import com.codeforsolution.user.service.userservice.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
+//@RequiredArgsConstructor
 public class UserController {
 
 
@@ -49,9 +51,11 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @PostMapping("/save-user")
-    public ResponseEntity<User> saveUsers(@RequestBody User user){
-        return new ResponseEntity<>(userService.createUser(user), HttpStatus.OK);
+    @PostMapping("/register")
+    public ResponseEntity<String> saveUsers(@RequestBody User user){
+        logger.info("user registering");
+        userService.createUser(user);
+        return new ResponseEntity<>("User successfully registered ", HttpStatus.OK);
     }
     @PostMapping("/token")
     public String getToken(@RequestBody UserRequest user){

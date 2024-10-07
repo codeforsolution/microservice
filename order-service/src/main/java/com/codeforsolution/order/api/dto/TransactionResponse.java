@@ -1,4 +1,4 @@
-package com.codeforsolution.order.api.common;
+package com.codeforsolution.order.api.dto;
 
 import com.codeforsolution.order.api.model.Order;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransactionRequest {
+public class TransactionResponse {
     private Order order;
-    private Payment payment;
+    private String transactionId;
+    private Double amount;
 }

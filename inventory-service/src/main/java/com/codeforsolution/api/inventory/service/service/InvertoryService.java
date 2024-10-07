@@ -1,7 +1,11 @@
 package com.codeforsolution.api.inventory.service.service;
 
+import com.codeforsolution.api.inventory.service.dto.InventoryResponse;
+
+import java.util.List;
+
 public interface InvertoryService {
 
 
-    boolean isInStock(String skuCode);
+    List<InventoryResponse> isInStock(List<String> skuCode);
 }

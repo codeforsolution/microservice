@@ -1,5 +1,7 @@
 package com.codeforsolution.product.service.productservice.service.impl;
 
+import com.codeforsolution.product.service.productservice.config.OrderFeignClientService;
+import com.codeforsolution.product.service.productservice.dto.OrderResponse;
 import com.codeforsolution.product.service.productservice.dto.ProductRequest;
 import com.codeforsolution.product.service.productservice.dto.ProductResponse;
 import com.codeforsolution.product.service.productservice.model.Product;
@@ -8,6 +10,7 @@ import com.codeforsolution.product.service.productservice.service.ProductService
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +23,7 @@ public class ProductServiceImpl implements ProductService {
 
 
     private final ProductRepository productRepository;
+    private final OrderFeignClientService orderFeignClientService;
 
     /**
      * @param productRequest
@@ -32,7 +36,9 @@ public class ProductServiceImpl implements ProductService {
                 .price(productRequest.getPrice())
                 .build();
         productRepository.save(product);
+        log.info("Product {} is saved", product.getProductId());
         return mapToProductResponse(product);
+
     }
 
     /**
@@ -41,6 +47,8 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductResponse> getAllProducts() {
         List<Product> products = productRepository.findAll();
+       ResponseEntity<OrderResponse> orderResponse = orderFeignClientService.getOrdersById(1L);
+       log.info("------------------Order Response----------------->",orderResponse.getHeaders());
         return products.stream().map(this::mapToProductResponse).collect(Collectors.toList());
     }
 

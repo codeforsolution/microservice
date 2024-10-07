@@ -1,7 +1,7 @@
 package com.codeforsolution.order.api.service.impl;
 
-import com.codeforsolution.order.api.common.Payment;
-import com.codeforsolution.order.api.common.TransactionRequest;
+import com.codeforsolution.order.api.dto.Payment;
+import com.codeforsolution.order.api.dto.TransactionRequest;
 import com.codeforsolution.order.api.exception.OrderNotFoundException;
 import com.codeforsolution.order.api.model.Order;
 import com.codeforsolution.order.api.repository.OrderRepository;
@@ -30,7 +30,7 @@ public class OrderServiceImpl implements OrderService {
      */
 
     @Override
-//    @CircuitBreaker(name="placeOrderCall", fallbackMethod = "fallbackDoOrder")
+    @CircuitBreaker(name="placeOrderCall", fallbackMethod = "fallbackDoOrder")
     public Order placeOrder(TransactionRequest transactionRequest) {
         Order order = transactionRequest.getOrder();
         Payment payment = transactionRequest.getPayment();

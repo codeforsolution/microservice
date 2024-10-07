@@ -14,7 +14,13 @@ spring:
   devtools:
     restart:
       enabled:  true
-
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    topic:
+      name: order_topic
 eureka:
   instance:
     hostname: localhost
@@ -29,16 +35,14 @@ management:
   health.circuitbreakers.enabled: true
 
 resilience4j.circuitbreaker:
-  config:
-    default:
+  instances:
+    placeOrderCall:
       registerHealthIndicator: true
-      slidingWindowSize: 10
-      minimumNumberOfCalls: 5
-      permittedNumberOfCallsInHalfOpenState: 3
-      automaticTransitionFormOpenToHalfOpenEnabled: true
-      waitDurationInOpenState: 5s
-      failureRateThreashold: 50
-      eventConsumerBufferSize: 10
+      slidingWindowSize: 5
+      minimumNumberOfCalls: 2
+      failureRateThreshold: 50
+      waitDurationInOpenState: 10000  # 10 seconds
+      permittedNumberOfCallsInHalfOpenState: 2
 inventorty:
   base:
     url: http://localhost:8787/inventory-service/api/inventory/

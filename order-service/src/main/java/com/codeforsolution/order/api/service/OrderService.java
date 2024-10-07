@@ -1,6 +1,6 @@
 package com.codeforsolution.order.api.service;
 
-import com.codeforsolution.order.api.common.TransactionRequest;
+import com.codeforsolution.order.api.dto.TransactionRequest;
 import com.codeforsolution.order.api.model.Order;
 
 import java.util.List;

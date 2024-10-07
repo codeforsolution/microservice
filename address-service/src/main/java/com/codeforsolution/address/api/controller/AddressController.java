@@ -30,5 +30,10 @@ public class AddressController {
         return new ResponseEntity<>(addressService.getAllAddress(), HttpStatus.OK);
     }
 
+    @GetMapping
+    public ResponseEntity<String> getAddressByEmpId(@PathVariable Long id){
+        return new ResponseEntity<>("Test data from Address-service", HttpStatus.OK);
+    }
+
 
 }
